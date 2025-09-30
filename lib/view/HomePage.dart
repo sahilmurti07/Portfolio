@@ -16,7 +16,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   // Constants
   static const double _mobileBreakpoint = 768;
-  static const String _cvUrl = 'https://drive.google.com/file/d/your-cv-file-id/view?usp=sharing';
+  static const String _cvUrl = 'https://drive.google.com/file/d/1GAtCuDKmlO8vfvsXilPHl4exJJZSfL_8/view?usp=drive_link';
   static const List<String> _skills = [
     "Dart, Flutter, C#, Python, SQL",
     "Supabase, Firebase, REST APIs, Git",
@@ -367,7 +367,7 @@ class _HomepageState extends State<Homepage> {
         color: Theme.of(context).cardTheme.color,
       ),
       child: Center(
-        child: Image.asset("assets/images/portfolio.png", fit: BoxFit.cover),
+        child: Image.asset("assets/images/portfolio.PNG", fit: BoxFit.cover),
       ),
     );
   }
