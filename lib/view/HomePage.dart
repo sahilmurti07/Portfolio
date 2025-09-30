@@ -367,7 +367,7 @@ class _HomepageState extends State<Homepage> {
         color: Theme.of(context).cardTheme.color,
       ),
       child: Center(
-        child: Image.asset("assets/images/portfolio.PNG", fit: BoxFit.cover),
+        child: Image.asset("assets/images/portfolio.png", fit: BoxFit.cover),
       ),
     );
   }
