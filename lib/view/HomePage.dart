@@ -16,7 +16,8 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   // Constants
   static const double _mobileBreakpoint = 768;
-  static const String _cvUrl = 'https://drive.google.com/file/d/1GAtCuDKmlO8vfvsXilPHl4exJJZSfL_8/view?usp=drive_link';
+  static const String _cvUrl =
+      'https://drive.google.com/file/d/1GAtCuDKmlO8vfvsXilPHl4exJJZSfL_8/view?usp=drive_link';
   static const List<String> _skills = [
     "Dart, Flutter, C#, Python, SQL",
     "Supabase, Firebase, REST APIs, Git",
@@ -57,10 +58,15 @@ class _HomepageState extends State<Homepage> {
     return AppBar(
       backgroundColor: const Color(0xFF121212),
       title: Padding(
-        padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 60),
+        padding: EdgeInsets.symmetric(horizontal: isMobile ? 10 : 60),
         child: Row(
           children: [
-            Text('Sahil Murti', style: Theme.of(context).appBarTheme.titleTextStyle),
+            Text(
+              'Sahil Murti',
+              style: isMobile
+                  ? Theme.of(context).textTheme.headlineLarge
+                  : Theme.of(context).textTheme.displayLarge,
+            ),
             if (!isMobile) ..._buildNavItems(),
           ],
         ),
@@ -69,18 +75,15 @@ class _HomepageState extends State<Homepage> {
   }
 
   List<Widget> _buildNavItems() {
-    final items = [
-      ("About", 800.0),
-      ("Projects", 1300.0),
-      ("Contact", 2400.0),
-    ];
+    final items = [("About", 800.0), ("Projects", 1300.0), ("Contact", 2400.0)];
 
     return [
       const Spacer(),
-      ...items.expand((item) => [
-        _navItem(item.$1, item.$2),
-        const SizedBox(width: 20),
-      ]).take(items.length * 2 - 1),
+      ...items
+          .expand(
+            (item) => [_navItem(item.$1, item.$2), const SizedBox(width: 20)],
+          )
+          .take(items.length * 2 - 1),
     ];
   }
 
@@ -100,7 +103,10 @@ class _HomepageState extends State<Homepage> {
           const SizedBox(height: 60),
           ...["About", "Projects", "Contact"].asMap().entries.map(
             (entry) => ListTile(
-              title: Text(entry.value, style: Theme.of(context).textTheme.bodyLarge),
+              title: Text(
+                entry.value,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
               onTap: () => _handleDrawerNavigation(entry.key),
             ),
           ),
@@ -113,6 +119,7 @@ class _HomepageState extends State<Homepage> {
   Widget _buildHeroSection() {
     return Container(
       height: MediaQuery.of(context).size.height,
+      width: double.infinity,
       decoration: _buildGradientDecoration(
         center: const Alignment(1, -0.3),
         colors: [
@@ -122,7 +129,7 @@ class _HomepageState extends State<Homepage> {
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.all(isMobile ? 20 : 80),
+        padding: EdgeInsets.all(isMobile ? 10 : 80),
         child: isMobile ? _buildMobileHero() : _buildDesktopHero(),
       ),
     );
@@ -198,7 +205,12 @@ class _HomepageState extends State<Homepage> {
         children: [
           Icon(Icons.check_circle, color: AppTheme.primaryColor),
           const SizedBox(width: 12),
-          Text(skill, style: Theme.of(context).textTheme.bodyMedium),
+          Text(
+            skill,
+            style: isMobile
+                ? Theme.of(context).textTheme.bodyMedium
+                : Theme.of(context).textTheme.bodyMedium,
+          ),
         ],
       ),
     );
@@ -219,7 +231,7 @@ class _HomepageState extends State<Homepage> {
       child: Column(
         children: [
           _buildSectionTitle("My Projects"),
-          const SizedBox(height: 40),
+          SizedBox(height: 40),
           _buildProjectsGrid(),
         ],
       ),
@@ -234,7 +246,6 @@ class _HomepageState extends State<Homepage> {
         crossAxisCount: isMobile ? 1 : 3,
         crossAxisSpacing: 20,
         mainAxisSpacing: 20,
-        childAspectRatio: 1.2,
       ),
       itemCount: projects.length,
       itemBuilder: (context, index) => CustomCard(project: projects[index]),
@@ -278,12 +289,18 @@ class _HomepageState extends State<Homepage> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: contacts.take(2).map((c) => _contactItem(c.$1, c.$2, c.$3)).toList(),
+            children: contacts
+                .take(2)
+                .map((c) => _contactItem(c.$1, c.$2, c.$3))
+                .toList(),
           ),
           const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: contacts.skip(2).map((c) => _contactItem(c.$1, c.$2, c.$3)).toList(),
+            children: contacts
+                .skip(2)
+                .map((c) => _contactItem(c.$1, c.$2, c.$3))
+                .toList(),
           ),
         ],
       );
@@ -310,7 +327,7 @@ class _HomepageState extends State<Homepage> {
   Widget _buildAnimatedColumn({required List<Widget> children}) {
     return AnimationLimiter(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: AnimationConfiguration.toStaggeredList(
           duration: const Duration(milliseconds: 600),
@@ -339,11 +356,7 @@ class _HomepageState extends State<Homepage> {
     required List<Color> colors,
   }) {
     return BoxDecoration(
-      gradient: RadialGradient(
-        center: center,
-        radius: 1.5,
-        colors: colors,
-      ),
+      gradient: RadialGradient(center: center, radius: 1.5, colors: colors),
     );
   }
 
@@ -351,7 +364,7 @@ class _HomepageState extends State<Homepage> {
     return Container(
       height: 300,
       decoration: BoxDecoration(
-        color: Theme.of(context).cardTheme.color,
+        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: const Icon(Icons.person, size: 100, color: Colors.white),
@@ -363,8 +376,15 @@ class _HomepageState extends State<Homepage> {
       height: isMobile ? 250 : 400,
       width: isMobile ? 250 : 400,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(22),
         color: Theme.of(context).cardTheme.color,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: Center(
         child: Image.asset("assets/images/portfolio.png", fit: BoxFit.cover),
@@ -374,13 +394,15 @@ class _HomepageState extends State<Homepage> {
 
   Widget _buildHeroContent({bool isMobile = false}) {
     return Column(
-      crossAxisAlignment: isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+      crossAxisAlignment: isMobile
+          ? CrossAxisAlignment.center
+          : CrossAxisAlignment.start,
       children: [
         Text(
           "HELLO!",
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            fontSize: isMobile ? 24 : null,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineMedium?.copyWith(fontSize: isMobile ? 24 : null),
         ),
         const SizedBox(height: 16),
         Text.rich(
@@ -393,11 +415,12 @@ class _HomepageState extends State<Homepage> {
               TextSpan(
                 text: "SAHIL MURTI",
                 style: GoogleFonts.poppins(
-                  textStyle: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                    color: AppTheme.primaryColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: isMobile ? 28 : null,
-                  ),
+                  textStyle: Theme.of(context).textTheme.headlineLarge
+                      ?.copyWith(
+                        color: AppTheme.primaryColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: isMobile ? 28 : null,
+                      ),
                 ),
               ),
             ],
@@ -428,10 +451,7 @@ class _HomepageState extends State<Homepage> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Center(
-        child: Text(
-          "Hire Me",
-          style: Theme.of(context).textTheme.labelLarge,
-        ),
+        child: Text("Hire Me", style: Theme.of(context).textTheme.labelLarge),
       ),
     );
   }
@@ -505,9 +525,9 @@ class _HomepageState extends State<Homepage> {
     final uri = Uri.parse(_cvUrl);
     if (!await launchUrl(uri)) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Could not download CV')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Could not download CV')));
       }
     }
   }

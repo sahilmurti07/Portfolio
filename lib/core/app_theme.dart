@@ -49,7 +49,7 @@ class AppTheme {
         color: textSecondary,
       ),
       bodyMedium: GoogleFonts.openSans(
-        fontSize: 14,
+        fontSize: 12,
         fontWeight: FontWeight.w400,
         color: textSecondary,
       ),

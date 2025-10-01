@@ -16,12 +16,13 @@ class CustomCard extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: Card(
         elevation: 6,
-        margin: EdgeInsets.all(isMobile ? 10 : 12),
+        margin: EdgeInsets.all(isMobile ? 5 : 12),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: InkWell(
           onTap: () => _launchURL(project.link),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               // Project Image
@@ -31,8 +32,7 @@ class CustomCard extends StatelessWidget {
                 ),
                 child: Image.asset(
                   project.image,
-                  height: isMobile ? 150 : 150,
-
+                  height: isMobile ? 80 : 120,
                   fit: BoxFit.contain,
                   width: double.infinity,
                 ),
@@ -40,7 +40,7 @@ class CustomCard extends StatelessWidget {
 
               Flexible(
                 child: Padding(
-                  padding: EdgeInsets.all(isMobile ? 12 : 16),
+                  padding: EdgeInsets.all(isMobile ? 5 : 12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -48,35 +48,35 @@ class CustomCard extends StatelessWidget {
                       Text(
                         project.title,
                         style: GoogleFonts.openSans(
-                          fontSize: isMobile ? 16 : 20,
+                          fontSize: isMobile ? 12 : 16,
                           fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        project.description,
+                        style: GoogleFonts.openSans(
+                          fontSize: isMobile ? 10 : 12,
+                          color: Colors.grey[400],
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 8),
-                      Text(
-                        project.description,
-                        style: GoogleFonts.openSans(
-                          fontSize: isMobile ? 12 : 14,
-                          color: Colors.grey[400],
-                        ),
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 12),
                       // Tech Stack as Chips
                       Wrap(
-                        spacing: 4,
-                        runSpacing: 4,
+                        spacing: 2,
+                        runSpacing: 2,
                         children: project.techstack
-                            .take(isMobile ? 3 : 5)
+                            .take(isMobile ? 4 : 3)
                             .map(
                               (tech) => Chip(
                                 label: Text(
                                   tech,
                                   style: TextStyle(
-                                    fontSize: isMobile ? 10 : 12,
+                                    fontSize: isMobile ? 8 : 10,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -88,20 +88,21 @@ class CustomCard extends StatelessWidget {
                             )
                             .toList(),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 14),
                       // Links
                       SizedBox(
                         width: double.infinity,
+                        height: isMobile ? 32 : 36,
                         child: ElevatedButton(
                           onPressed: () => _launchURL(project.link),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
-                              vertical: isMobile ? 8 : 12,
+                              vertical: isMobile ? 4 : 8,
                             ),
                           ),
                           child: Text(
                             "GitHub",
-                            style: TextStyle(fontSize: isMobile ? 12 : 14),
+                            style: TextStyle(fontSize: isMobile ? 10 : 12),
                           ),
                         ),
                       ),

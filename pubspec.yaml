@@ -38,6 +38,7 @@ dev_dependencies:
   flutter_staggered_animations: ^1.1.1
   flutter_test:
     sdk: flutter
+  gh_pages: ^0.1.1
   google_fonts: ^6.3.2
   url_launcher: ^6.3.2
 
